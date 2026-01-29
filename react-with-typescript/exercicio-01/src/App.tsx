@@ -1,16 +1,25 @@
 import React from "react"
 import AddNewTask from "./components/AddNewTask"
+import TaskItem from "./components/TaskItem"
 
-interface ITaskList {
+export interface ITaskList {
   id: string,
   task: string,
   complete: boolean
 }
 function App() {
-  const [taskList, settaskList] = React.useState<ITaskList[]>([])
+  const [taskList, setTaskList] = React.useState<ITaskList[]>([])
 
   const handleAddNewTask = (value: string) => {
-    settaskList([...taskList, { id: (taskList.length + 1).toString(), task: value, complete: false }])
+    setTaskList([...taskList, { id: (taskList.length + 1).toString(), task: value, complete: false }])
+  }
+
+  const handleComplete = (id: string) => {
+    setTaskList([...taskList.map(task => ({...task, complete: task.id === id ? true : task.complete}))])
+  }
+
+  const handleRemove = (id: string) => {
+    setTaskList([...taskList.filter(task => task.id !== id)])
   }
 
   return (
@@ -20,11 +29,16 @@ function App() {
       />
 
       <ul style={{listStyle: 'none'}}>
-        {taskList && taskList.map((task) => (
-          <li>{task.id}. {task.task}</li>
+        {taskList && taskList.map(({ id, task, complete }) => (
+          <TaskItem
+            id={id}
+            task={task}
+            complete={complete}
+            onComplete={() => handleComplete(id)}
+            onRemove={() => handleRemove(id)}
+          />
         ))}
       </ul>
-      
     </>
   )
 }
