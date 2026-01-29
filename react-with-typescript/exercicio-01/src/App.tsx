@@ -31,6 +31,7 @@ function App() {
       <ul style={{listStyle: 'none'}}>
         {taskList && taskList.map(({ id, task, complete }) => (
           <TaskItem
+            key={id}
             id={id}
             task={task}
             complete={complete}
