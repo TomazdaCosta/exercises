@@ -3,7 +3,7 @@ import React from 'react'
 interface IAddNewTaskProps {
   onAdd(value: string): void
 }
-const AddNewTask = (props: IAddNewTaskProps) => {
+const AddNewTask = ({ onAdd }: IAddNewTaskProps) => {
   const [inputValue, setInputValue] = React.useState('')
 
   const handleInputValue = (value: string) => {
@@ -12,7 +12,7 @@ const AddNewTask = (props: IAddNewTaskProps) => {
 
   const handleButtonAdd = () => {
     if(inputValue !== '') {
-      props.onAdd(inputValue)
+      onAdd(inputValue)
       setInputValue('')
     } 
   }
