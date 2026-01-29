@@ -1,13 +1,20 @@
 import React from 'react'
 
 interface IAddNewTaskProps {
-  onAdd(): void
+  onAdd(value: string): void
 }
 const AddNewTask = (props: IAddNewTaskProps) => {
   const [inputValue, setInputValue] = React.useState('')
 
   const handleInputValue = (value: string) => {
     setInputValue(value)
+  }
+
+  const handleButtonAdd = () => {
+    if(inputValue !== '') {
+      props.onAdd(inputValue)
+      setInputValue('')
+    } 
   }
 
   return (
@@ -20,7 +27,7 @@ const AddNewTask = (props: IAddNewTaskProps) => {
       />
 
       <button
-        onClick={() => props.onAdd()}
+        onClick={handleButtonAdd}
       >
         Adicionar
       </button>

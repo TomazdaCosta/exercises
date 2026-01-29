@@ -9,15 +9,17 @@ interface ITaskList {
 function App() {
   const [taskList, settaskList] = React.useState<ITaskList[]>([])
 
+  const handleAddNewTask = (value: string) => {
+    settaskList([...taskList, { id: (taskList.length + 1).toString(), task: value, complete: false }])
+  }
+
   return (
     <>
       <AddNewTask
-      onAdd={() => {
-        settaskList([...taskList, { id: (taskList.length + 1).toString(), task: 'teste', complete: false }])
-      }}
+        onAdd={handleAddNewTask}
       />
 
-      <ul>
+      <ul style={{listStyle: 'none'}}>
         {taskList && taskList.map((task) => (
           <li>{task.id}. {task.task}</li>
         ))}
