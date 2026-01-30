@@ -1,4 +1,4 @@
-import type { ITaskList } from '../App'
+import type { ITaskList } from "../pages/Home"
 
 interface ITaskItemProps extends ITaskList {
   onComplete(): void
