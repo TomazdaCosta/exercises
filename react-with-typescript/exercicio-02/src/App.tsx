@@ -12,17 +12,23 @@ const App = () => {
     categoryValue: ''
   })
   const [productList, setProductList] = React.useState<IProductList[]>([])
+  const [searchList, setSearchList] = React.useState<IProductList[]>([])
 
   const handleSubmit = (ev: React.SubmitEvent<HTMLFormElement>) => {
     ev.preventDefault()
     if(product.nameValue && product.priceValue && product.priceValue) {
       setProductList([...productList, {...product}])
+      setSearchList([...productList, {...product}])
       setProduct({
         nameValue: '',
         priceValue: 0,
         categoryValue: ''
       })
-    } 
+    }
+  }
+
+  const handleSearch = () => {
+    
   }
 
   return (
@@ -39,7 +45,7 @@ const App = () => {
             id='name'
             value={product.nameValue}
             onChange={({ target }) => setProduct({...product, nameValue: target.value})}
-            style={{padding: '3px 2px'}}
+            style={{padding: '3px'}}
           />
         </div>
         
@@ -50,7 +56,7 @@ const App = () => {
             id='price'
             value={product.priceValue}
             onChange={({ target }) => setProduct({...product, priceValue: +target.value})}
-            style={{padding: '3px 2px'}}
+            style={{padding: '3px'}}
           />
         </div>
         
@@ -60,7 +66,7 @@ const App = () => {
             name="category"
             id="category"
             onChange={({ target }) => setProduct({...product, categoryValue: target.value})}
-            style={{padding: '3px 2px'}}
+            style={{padding: '3px'}}
           >
             <option selected disabled>--Escolha a opção--</option>
             <option value="Mercearia Doce">Mercearia Doce</option>
@@ -77,14 +83,23 @@ const App = () => {
         >Adicionar item</button>
       </form>
 
+      <div style={{marginTop: '20px', width: '100%'}}>
+        <input
+          type="text"
+          placeholder='🔍 buscar item'
+          style={{width: '600px', padding: '3px'}}
+          onChange={() => handleSearch()}
+        />
+      </div>
+
       <div style={{display: 'grid', gap: '10px', marginTop: '40px'}}>
-        {productList && productList.map(product => {
+        {searchList.length ? searchList.map(product => {
           return(
             <div key={product.nameValue}>
               <span>{product.nameValue} - R$ {product.priceValue} - Categoria: {product.categoryValue}</span>
             </div>
           )
-        })}
+        }) : <div>Nenhum produto encontrado.</div>}
       </div>
 
     </div>
