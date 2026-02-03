@@ -27,8 +27,8 @@ const App = () => {
     }
   }
 
-  const handleSearch = () => {
-    
+  const handleSearch = (value: string) => {
+    setSearchList(productList.filter(product => product.nameValue.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase().includes(value.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase())))
   }
 
   return (
@@ -65,10 +65,11 @@ const App = () => {
           <select
             name="category"
             id="category"
+            value={product.categoryValue}
             onChange={({ target }) => setProduct({...product, categoryValue: target.value})}
             style={{padding: '3px'}}
           >
-            <option selected disabled>--Escolha a opção--</option>
+            <option value='' disabled>--Escolha a opção--</option>
             <option value="Mercearia Doce">Mercearia Doce</option>
             <option value="Mercearia Salgada">Mercearia Salgada</option>
             <option value="Frios">Frios</option>
@@ -88,7 +89,7 @@ const App = () => {
           type="text"
           placeholder='🔍 buscar item'
           style={{width: '600px', padding: '3px'}}
-          onChange={() => handleSearch()}
+          onChange={({target}) => handleSearch(target.value)}
         />
       </div>
 
