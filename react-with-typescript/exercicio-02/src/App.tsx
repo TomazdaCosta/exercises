@@ -6,53 +6,78 @@ interface IProductList {
   categoryValue: string
 }
 const App = () => {
-  const [nameValue, setNameValue] = React.useState('')
-  const [categoryValue, setCategoryValue] = React.useState('')
-  const [priceValue, setPriceValue] = React.useState(0)
+  const [product, setProduct] = React.useState<IProductList>({
+    nameValue: '',
+    priceValue: 0,
+    categoryValue: ''
+  })
   const [productList, setProductList] = React.useState<IProductList[]>([])
 
+  const handleSubmit = (ev: React.SubmitEvent<HTMLFormElement>) => {
+    ev.preventDefault()
+    if(product.nameValue && product.priceValue && product.priceValue) {
+      setProductList([...productList, {...product}])
+      setProduct({
+        nameValue: '',
+        priceValue: 0,
+        categoryValue: ''
+      })
+    } 
+  }
+
   return (
-    <div>
+    <div style={{maxWidth: '800px', margin: '20px auto', backgroundColor: 'rgba(232, 232, 232, 0.5)', padding: '20px', borderRadius: '8px'}}>
 
       <form
-        onSubmit={(ev) => {
-          ev.preventDefault()
-          setProductList([...productList, {nameValue, priceValue, categoryValue}])
-        }}
+        onSubmit={(ev) => handleSubmit(ev)}
+        style={{display: 'grid', gap: '10px'}}
       >
-        <label htmlFor="name">Nome</label>
-        <input
-          type="text"
-          id='name'
-          value={nameValue}
-          onChange={({ target }) => setNameValue(target.value)}
-        />
+        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
+          <label htmlFor="name">Nome</label>
+          <input
+            type="text"
+            id='name'
+            value={product.nameValue}
+            onChange={({ target }) => setProduct({...product, nameValue: target.value})}
+            style={{padding: '3px 2px'}}
+          />
+        </div>
         
-        <label htmlFor="price">Preço</label>
-        <input
-          type="number"
-          id='price'
-          value={priceValue}
-          onChange={({ target }) => setPriceValue(+target.value)}
-        />
+        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
+          <label htmlFor="price">Preço</label>
+          <input
+            type="number"
+            id='price'
+            value={product.priceValue}
+            onChange={({ target }) => setProduct({...product, priceValue: +target.value})}
+            style={{padding: '3px 2px'}}
+          />
+        </div>
         
-        <label htmlFor="category">Categoria</label>
-        <select
-          name="category"
-          id="category"
-          onChange={({ target }) => setCategoryValue(target.value)}
-        >
-          <option selected disabled>--Escolha a opção--</option>
-          <option value="Mercearia Doce">Mercearia Doce</option>
-          <option value="Mercearia Salgada">Mercearia Salgada</option>
-          <option value="Frios">Frios</option>
-          <option value="Frigorífico">Frigorífico</option>
-        </select>
+        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
+          <label htmlFor="category">Categoria</label>
+          <select
+            name="category"
+            id="category"
+            onChange={({ target }) => setProduct({...product, categoryValue: target.value})}
+            style={{padding: '3px 2px'}}
+          >
+            <option selected disabled>--Escolha a opção--</option>
+            <option value="Mercearia Doce">Mercearia Doce</option>
+            <option value="Mercearia Salgada">Mercearia Salgada</option>
+            <option value="Frios">Frios</option>
+            <option value="Frigorífico">Frigorífico</option>
+          </select>
+        </div>
+        
 
-        <button type="submit">Adicionar item</button>
+        <button
+          type="submit"
+          style={{width: 'max-content', textTransform: 'uppercase', marginTop: '15px', backgroundColor: 'rgba(0, 99, 199, 1)', color: 'white', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer'}}
+        >Adicionar item</button>
       </form>
 
-      <div>
+      <div style={{display: 'grid', gap: '10px', marginTop: '40px'}}>
         {productList && productList.map(product => {
           return(
             <div key={product.nameValue}>
