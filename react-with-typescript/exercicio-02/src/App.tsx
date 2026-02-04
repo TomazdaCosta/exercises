@@ -16,7 +16,7 @@ const App = () => {
 
   const handleSubmit = (ev: React.SubmitEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    if(product.nameValue && product.priceValue && product.priceValue) {
+    if(product.nameValue && product.priceValue > 0 && product.priceValue) {
       setProductList([...productList, {...product}])
       setSearchList([...productList, {...product}])
       setProduct({
