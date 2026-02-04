@@ -1,4 +1,5 @@
 import React from 'react'
+import FormComponent from './components/FormComponent'
 
 interface IProductList {
   nameValue: string,
@@ -34,9 +35,8 @@ const App = () => {
   return (
     <div style={{maxWidth: '800px', margin: '20px auto', backgroundColor: 'rgba(232, 232, 232, 0.5)', padding: '20px', borderRadius: '8px'}}>
 
-      <form
-        onSubmit={(ev) => handleSubmit(ev)}
-        style={{display: 'grid', gap: '10px'}}
+      <FormComponent
+        onSubmitHandle={handleSubmit}
       >
         <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
           <label htmlFor="name">Nome</label>
@@ -82,7 +82,7 @@ const App = () => {
           type="submit"
           style={{width: 'max-content', textTransform: 'uppercase', marginTop: '15px', backgroundColor: 'rgba(0, 99, 199, 1)', color: 'white', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer'}}
         >Adicionar item</button>
-      </form>
+      </FormComponent>
 
       <div style={{marginTop: '20px', width: '100%'}}>
         <input
