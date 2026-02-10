@@ -1,15 +1,16 @@
 import React from 'react'
 import FormComponent from './components/FormComponent'
+import InputComponent from './components/InputComponent'
 
 interface IProductList {
   nameValue: string,
-  priceValue: number,
+  priceValue: string,
   categoryValue: string
 }
 const App = () => {
   const [product, setProduct] = React.useState<IProductList>({
     nameValue: '',
-    priceValue: 0,
+    priceValue: '0',
     categoryValue: ''
   })
   const [productList, setProductList] = React.useState<IProductList[]>([])
@@ -17,12 +18,12 @@ const App = () => {
 
   const handleSubmit = (ev: React.SubmitEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    if(product.nameValue && product.priceValue > 0 && product.priceValue) {
+    if(product.nameValue && +product.priceValue > 0 && product.priceValue) {
       setProductList([...productList, {...product}])
       setSearchList([...productList, {...product}])
       setProduct({
         nameValue: '',
-        priceValue: 0,
+        priceValue: '0',
         categoryValue: ''
       })
     }
@@ -32,33 +33,23 @@ const App = () => {
     setSearchList(productList.filter(product => product.nameValue.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase().includes(value.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase())))
   }
 
+  const handleChangeName = (value: string) => {
+    setProduct({...product, nameValue: value})
+  }
+
+  const handleChangePrice = (value: string) => {
+    setProduct({...product, priceValue: value})
+  }
+
   return (
     <div style={{maxWidth: '800px', margin: '20px auto', backgroundColor: 'rgba(232, 232, 232, 0.5)', padding: '20px', borderRadius: '8px'}}>
 
       <FormComponent
         onSubmitHandle={handleSubmit}
       >
-        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
-          <label htmlFor="name">Nome</label>
-          <input
-            type="text"
-            id='name'
-            value={product.nameValue}
-            onChange={({ target }) => setProduct({...product, nameValue: target.value})}
-            style={{padding: '3px'}}
-          />
-        </div>
-        
-        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
-          <label htmlFor="price">Preço</label>
-          <input
-            type="number"
-            id='price'
-            value={product.priceValue}
-            onChange={({ target }) => setProduct({...product, priceValue: +target.value})}
-            style={{padding: '3px'}}
-          />
-        </div>
+        <InputComponent labelTitle='Nome' inputId='name' inputType='text' inputValue={product.nameValue} inputChange={handleChangeName} />
+
+        <InputComponent labelTitle='Preço' inputId='price' inputType='number' inputValue={product.priceValue} inputChange={handleChangePrice} />
         
         <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
           <label htmlFor="category">Categoria</label>
