@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface IInputComponentProps {
   labelTitle: string,
   inputId: string,
