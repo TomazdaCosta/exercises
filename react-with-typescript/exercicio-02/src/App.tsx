@@ -1,6 +1,7 @@
 import React from 'react'
 import FormComponent from './components/FormComponent'
 import InputComponent from './components/InputComponent'
+import SelectComponent from './components/SelectComponent'
 
 interface IProductList {
   nameValue: string,
@@ -15,6 +16,7 @@ const App = () => {
   })
   const [productList, setProductList] = React.useState<IProductList[]>([])
   const [searchList, setSearchList] = React.useState<IProductList[]>([])
+  const options = ['Mercearia Doce', 'Mercearia Salgada', 'Frios', 'Cereais']
 
   const handleSubmit = (ev: React.SubmitEvent<HTMLFormElement>) => {
     ev.preventDefault()
@@ -41,6 +43,10 @@ const App = () => {
     setProduct({...product, priceValue: value})
   }
 
+  const handleChangeCategory= (value: string) => {
+    setProduct({...product, categoryValue: value})
+  }
+
   return (
     <div style={{maxWidth: '800px', margin: '20px auto', backgroundColor: 'rgba(232, 232, 232, 0.5)', padding: '20px', borderRadius: '8px'}}>
 
@@ -51,23 +57,7 @@ const App = () => {
 
         <InputComponent labelTitle='Preço' inputId='price' inputType='number' inputValue={product.priceValue} inputChange={handleChangePrice} />
         
-        <div style={{display: 'grid', maxWidth: '300px', gap: '5px'}}>
-          <label htmlFor="category">Categoria</label>
-          <select
-            name="category"
-            id="category"
-            value={product.categoryValue}
-            onChange={({ target }) => setProduct({...product, categoryValue: target.value})}
-            style={{padding: '3px'}}
-          >
-            <option value='' disabled>--Escolha a opção--</option>
-            <option value="Mercearia Doce">Mercearia Doce</option>
-            <option value="Mercearia Salgada">Mercearia Salgada</option>
-            <option value="Frios">Frios</option>
-            <option value="Frigorífico">Frigorífico</option>
-          </select>
-        </div>
-        
+        <SelectComponent labelTitle='Categoria' selectId='category' selectValue={product.categoryValue} selectChange={handleChangeCategory} options={options} />
 
         <button
           type="submit"
