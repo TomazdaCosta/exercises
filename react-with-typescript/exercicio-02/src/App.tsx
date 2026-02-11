@@ -2,6 +2,7 @@ import React from 'react'
 import FormComponent from './components/FormComponent'
 import InputComponent from './components/InputComponent'
 import SelectComponent from './components/SelectComponent'
+import ProductList from './components/ProductList'
 
 interface IProductList {
   nameValue: string,
@@ -58,11 +59,6 @@ const App = () => {
         <InputComponent labelTitle='Preço' inputId='price' inputType='number' inputValue={product.priceValue} inputChange={handleChangePrice} />
         
         <SelectComponent labelTitle='Categoria' selectId='category' selectValue={product.categoryValue} selectChange={handleChangeCategory} options={options} />
-
-        <button
-          type="submit"
-          style={{width: 'max-content', textTransform: 'uppercase', marginTop: '15px', backgroundColor: 'rgba(0, 99, 199, 1)', color: 'white', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer'}}
-        >Adicionar item</button>
       </FormComponent>
 
       <div style={{marginTop: '20px', width: '100%'}}>
@@ -77,9 +73,7 @@ const App = () => {
       <div style={{display: 'grid', gap: '10px', marginTop: '40px'}}>
         {searchList.length ? searchList.map(product => {
           return(
-            <div key={product.nameValue}>
-              <span>{product.nameValue} - R$ {product.priceValue} - Categoria: {product.categoryValue}</span>
-            </div>
+            <ProductList key={product.nameValue} nameValue={product.nameValue} priceValue={product.priceValue} categoryValue={product.categoryValue} />
           )
         }) : <div>Nenhum produto encontrado.</div>}
       </div>
