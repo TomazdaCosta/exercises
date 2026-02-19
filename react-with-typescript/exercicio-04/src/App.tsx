@@ -1,12 +1,23 @@
 import React from "react"
 import AddTask from "./components/AddTask"
 import type { ITask } from "./types/types"
+import ItemTask from "./components/ItemTask"
 
 const App = () => {
   const [taskList, setTaskList] = React.useState<ITask[]>([])
 
   const handleAddTask = (newTask: ITask) => {
     setTaskList([...taskList, newTask])
+  }
+
+  const handleCompleteTask = (taskId: string) => {
+    setTaskList(taskList.map(task => {
+      if(task.id === taskId) {
+        return { id: task.id, title: task.title, complete: true }
+      } else {
+        return task
+      }
+    }))
   }
 
   return (
@@ -16,11 +27,9 @@ const App = () => {
       </div>
 
       <div>
-        {taskList.map((task) => {
+        {taskList.map(({id, title, complete}) => {
           return(
-            <div key={task.id}>
-              {task.title} - {task.complete ? 'Completa' : 'Pendente'}
-            </div>
+            <ItemTask id={id} title={title} complete={complete} completeTask={handleCompleteTask} />
           )
         })}
       </div>

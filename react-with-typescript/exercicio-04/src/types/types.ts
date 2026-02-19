@@ -7,3 +7,7 @@ export interface ITask {
   title: string,
   complete: boolean
 }
+
+export interface ITaskItem extends ITask {
+  completeTask: (taskId: string) => void
+}
