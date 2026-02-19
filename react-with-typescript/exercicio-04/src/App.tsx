@@ -1,11 +1,12 @@
 import React from "react"
 import AddTask from "./components/AddTask"
+import type { ITask } from "./types/types"
 
 const App = () => {
-  const [taskList, setTaskList] = React.useState<string[]>([])
+  const [taskList, setTaskList] = React.useState<ITask[]>([])
 
-  const handleAddTask = (value: string) => {
-    setTaskList([...taskList, value])
+  const handleAddTask = (newTask: ITask) => {
+    setTaskList([...taskList, newTask])
   }
 
   return (
@@ -17,8 +18,8 @@ const App = () => {
       <div>
         {taskList.map((task) => {
           return(
-            <div key={task}>
-              {task}
+            <div key={task.id}>
+              {task.title} - {task.complete ? 'Completa' : 'Pendente'}
             </div>
           )
         })}

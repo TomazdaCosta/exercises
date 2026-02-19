@@ -1,24 +1,29 @@
 import React from 'react'
+import type { IAddTaskProps, ITask } from '../types/types'
 
-interface IAddTaskProps {
-  funcAdd: (value: string) => void
-}
 const AddTask = ({ funcAdd }: IAddTaskProps) => {
-  const [task, setTask] = React.useState('')
+  const [taskTitle, setTaskTitle] = React.useState('')
+
 
   return (
     <div>
       <input
         type="text"
-        value={task}
-        onChange={({target}) => setTask(target.value)}
+        value={taskTitle}
+        onChange={({target}) => setTaskTitle(target.value)}
       />
 
       <button
         onClick={() => {
-          if(task) {
-            funcAdd(task)
-            setTask('')
+          if(taskTitle) {
+            const newTask: ITask = {
+              id: taskTitle + (Math.floor(Math.random() * 1000)),
+              title: taskTitle,
+              complete: false
+            }
+
+            funcAdd(newTask)
+            setTaskTitle('')
           }
         }}
       >
