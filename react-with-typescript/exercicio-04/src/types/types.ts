@@ -10,4 +10,5 @@ export interface ITask {
 
 export interface ITaskItem extends ITask {
   completeTask: (taskId: string) => void
+  removeTask: (taskId: string) => void
 }

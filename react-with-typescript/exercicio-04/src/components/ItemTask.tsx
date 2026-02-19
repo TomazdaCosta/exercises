@@ -1,6 +1,6 @@
 import type { ITaskItem } from "../types/types"
 
-const ItemTask = ({id, title, complete, completeTask}: ITaskItem) => {
+const ItemTask = ({id, title, complete, completeTask, removeTask}: ITaskItem) => {
   const completeStatus = complete ? 'green' : 'red'
 
   return (
@@ -19,7 +19,12 @@ const ItemTask = ({id, title, complete, completeTask}: ITaskItem) => {
           >
             Completar
           </button>
-          <button>Excluir</button>
+
+          <button
+            onClick={() => removeTask(id)}
+          >
+            Excluir
+          </button>
         </div>
       }
       
