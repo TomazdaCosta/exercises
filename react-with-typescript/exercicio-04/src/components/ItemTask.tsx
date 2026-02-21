@@ -17,7 +17,9 @@ const ItemTask = ({id, title, complete, completeTask, removeTask}: ITaskItem) =>
           <div style={{display: 'flex', gap: '4px'}}>
             <button
               onClick={() => setChangeTitle(currentValue => !currentValue)}
-            >Alterar</button>
+            >
+              Alterar
+            </button>
             
             <button
               onClick={() => completeTask(id)}
