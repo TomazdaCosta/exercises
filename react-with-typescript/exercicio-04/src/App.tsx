@@ -40,13 +40,14 @@ const App = () => {
         <AddTask funcAdd={handleAddTask} />
       </div>
 
-      <div>
+      {taskList.length !== 0 ? <div>
         {taskList.map(({id, title, complete}) => {
           return(
             <ItemTask key={id} id={id} title={title} complete={complete} completeTask={handleCompleteTask} removeTask={handleRemoveTask} changeNewTitle={handleChangeTaskTitle} />
           )
         })}
-      </div>
+      </div> : <div><p>Sem tarefas no momento!</p></div>}
+      
     </div>
   )
 }
