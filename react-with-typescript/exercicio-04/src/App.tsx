@@ -24,6 +24,16 @@ const App = () => {
     setTaskList(taskList.filter(task => task.id !== taskId))
   }
 
+  const handleChangeTaskTitle = (id: string, newTitle: string) => {
+    setTaskList(taskList.map(task => {
+      if(task.id === id) {
+        return { id: task.id, title: newTitle, complete: task.complete }
+      } else {
+        return task
+      }
+    }))
+  }
+
   return (
     <div>
       <div>
@@ -33,7 +43,7 @@ const App = () => {
       <div>
         {taskList.map(({id, title, complete}) => {
           return(
-            <ItemTask id={id} title={title} complete={complete} completeTask={handleCompleteTask} removeTask={handleRemoveTask} />
+            <ItemTask key={id} id={id} title={title} complete={complete} completeTask={handleCompleteTask} removeTask={handleRemoveTask} changeNewTitle={handleChangeTaskTitle} />
           )
         })}
       </div>

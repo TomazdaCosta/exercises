@@ -1,13 +1,13 @@
 import React from "react"
 import type { ITaskItem } from "../types/types"
 
-const ItemTask = ({id, title, complete, completeTask, removeTask}: ITaskItem) => {
+const ItemTask = ({id, title, complete, completeTask, removeTask, changeNewTitle}: ITaskItem) => {
   const [newTaskTitle, setNewTaskTitle] = React.useState('')
   const [changeTitle, setChangeTitle] = React.useState(false)
   const completeStatus = complete ? 'green' : 'red'
 
   return (
-    <div key={id}>
+    <div>
       <div style={{display: 'flex', gap: '4px', alignItems: 'center'}}>
         <span style={{width: '8px', height: '8px', backgroundColor: completeStatus, display: 'inline-block', borderRadius: '50%'}}></span>
 
@@ -46,7 +46,15 @@ const ItemTask = ({id, title, complete, completeTask, removeTask}: ITaskItem) =>
                 onChange={({ target }) => setNewTaskTitle(target.value)}
               />
 
-              <button>Salvar</button>
+              <button
+                onClick={() => {
+                  changeNewTitle(id, newTaskTitle)
+                  setNewTaskTitle('')
+                  setChangeTitle(false)
+                }}
+              >
+                Salvar
+              </button>
             </div>
           }
         </div>
